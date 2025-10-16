@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: #111827;
+      --panel-2: #0f172a;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --brand: #7c3aed; /* violet-600 */
+      --brand-600: #6d28d9;
+      --brand-700: #5b21b6;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --radius: 12px;
+    }
+
+    html, body {
+      width: 360px;
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(124,58,237,0.2), transparent 40%),
+                  radial-gradient(800px 400px at 110% 10%, rgba(16,185,129,0.12), transparent 40%),
+                  var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    .shell {
+      padding: 16px;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px 12px 16px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(124,58,237,0.12), rgba(124,58,237,0.04));
+    }
+
+    .logo {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: radial-gradient(120% 120% at 20% 10%, rgba(124,58,237,0.45), transparent 60%),
+                  rgba(124,58,237,0.2);
+      border: 1px solid rgba(124,58,237,0.35);
+      box-shadow: inset 0 0 30px rgba(124,58,237,0.25);
+      font-size: 16px;
+    }
+
+    .logo img {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,0.25));
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 14px;
+      letter-spacing: 0.2px;
+    }
+
+    .sub {
+      margin: 0;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .section {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .btn {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      /* Metallic translucent base */
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02)) ,
+        linear-gradient(120deg, rgba(255,255,255,0.20), rgba(255,255,255,0.06) 40%, rgba(255,255,255,0) 70%);
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.18),
+        inset 0 -1px 0 rgba(0,0,0,0.35);
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: -60%;
+      left: -30%;
+      width: 60%;
+      height: 220%;
+      background: linear-gradient(120deg, rgba(255,255,255,0.45), rgba(255,255,255,0.10) 40%, rgba(255,255,255,0) 70%);
+      transform: rotate(18deg);
+      opacity: .22;
+      pointer-events: none;
+      transition: transform .35s ease, opacity .35s ease;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(124,58,237,0.15), inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(0,0,0,0.4); }
+    .btn:hover::before { transform: rotate(18deg) translateX(120%); opacity: .32; }
+    .btn:active { transform: translateY(0); }
+    .btn:disabled { opacity: .55; cursor: not-allowed; }
+    .btn.primary { background: linear-gradient(180deg, rgba(124,58,237,0.3), rgba(124,58,237,0.16)); border-color: rgba(124,58,237,0.45); }
+    .btn.secondary { background: linear-gradient(180deg, rgba(16,185,129,0.25), rgba(16,185,129,0.12)); border-color: rgba(16,185,129,0.44); }
+    .btn.danger { background: linear-gradient(180deg, rgba(239,68,68,0.28), rgba(239,68,68,0.14)); border-color: rgba(239,68,68,0.44); }
+
+    .info {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+      background: rgba(255,255,255,0.03);
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .status { display:none; text-align:center; padding: 10px; border-radius: 10px; font-size: 12px; font-weight: 500; }
+    .status.info { background: rgba(124,58,237,0.15); border:1px solid rgba(124,58,237,0.35); color:#e9d5ff; }
+    .status.success { background: rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.35); color:#d1fae5; }
+    .status.error { background: rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.35); color:#fee2e2; }
+
+    .stats { display:grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .stat {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      text-align: center;
+    }
+    .stat .value { font-size: 18px; font-weight: 700; color: #c4b5fd; }
+    .stat .label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    .settings { display:grid; gap: 10px; }
+    .field { display:grid; gap:6px; }
+    .field label { font-size: 12px; color: var(--muted); }
+    .input, select {
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      outline:none;
+    }
+    .row { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .hint { font-size:11px; color: var(--muted); }
+    .footer { padding: 10px 16px 14px; font-size: 11px; color: var(--muted); text-align:center; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="panel">
+      <div class="header">
+        <div class="logo">
+          <img src="images/icon16.png" alt="PDF Screenshot Helper" />
+        </div>
+        <div>
+          <h1>PDF Screenshot Helper</h1>
+          <p class="sub">Select, capture, and export clean PDFs</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="grid">
+          <button id="selectArea" class="btn primary">
+            <span id="selectAreaText">Select Capture Area</span>
+          </button>
+          <button id="createPdf" class="btn secondary" disabled>
+            <span>Create PDF</span>
+          </button>
+          <button id="clearScreenshots" class="btn danger" disabled>
+            <span>Clear Screenshots</span>
+          </button>
+          <div id="status" class="status"></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="stats">
+          <div class="stat">
+            <div class="value" id="screenshotCount">0</div>
+            <div class="label">Screenshots</div>
+          </div>
+          <div class="stat">
+            <div class="value" id="areaSize">-</div>
+            <div class="label">Area Size</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="settings">
+          <div class="field">
+            <label for="chunkSize">PDF chunk size (pages per file)</label>
+            <select id="chunkSize">
+              <option value="50">50</option>
+              <option value="100" selected>100</option>
+              <option value="150">150</option>
+              <option value="200">200</option>
+            </select>
+            <div class="hint">Large batches are more reliable when split into multiple PDFs.</div>
+          </div>
+          <div class="row">
+            <label class="hint" for="resetArea">Also reset area when clearing</label>
+            <input id="resetArea" type="checkbox"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="info">
+          1) Click Select Capture Area and drag to select.<br>
+          2) Use <b>Ctrl+Shift+S</b> (Mac: <b>Cmd+Shift+S</b>) to capture repeatedly.<br>
+          3) Export to PDF when done.
+        </div>
+      </div>
+
+      <div class="footer">PDFs save to your Downloads folder</div>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

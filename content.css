@@ -1,0 +1,47 @@
+/* Content script styles for PDF Screenshot Helper */
+#screenshot-feedback {
+  animation: fadeInOut 3s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% { 
+    opacity: 0; 
+    transform: translateX(-50%) translateY(-20px); 
+  }
+  10% { 
+    opacity: 1; 
+    transform: translateX(-50%) translateY(0); 
+  }
+  90% { 
+    opacity: 1; 
+    transform: translateX(-50%) translateY(0); 
+  }
+  100% { 
+    opacity: 0; 
+    transform: translateX(-50%) translateY(-20px); 
+  }
+}
+
+#screenshot-selection-overlay {
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+#screenshot-selection-rect {
+  animation: rectAppear 0.1s ease-out;
+}
+
+@keyframes rectAppear {
+  from { 
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
